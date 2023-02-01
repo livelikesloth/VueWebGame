@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <div>{{first}} X {{second}} =</div>
+    <form @submit="onSubmitForm">
+      <!-- v-model로 양방향 바인딩 ref를통해 vue가 이 태그를 부르는 이름이 answer가 된다. -->
+      <input type="number" ref=""answer v-model="value"> 
+      <button >입력</button>
+      <div>{{value}}</div> <!-- 값을 확인하기 위해 -->
+    </form>
+    <div>{{result}}</div> <!--정답여부 출력-->
+  </div>
+  <script>
+    const app = new Vue({
+      el: '#root',
+      data:{ // Math.ceil = 주어진 숫자보다 크거나 같은 숫자 중 가장 작은 숫자를 integer 로 반환
+        first: Math.ceil(Math.random()*9),
+        second: Math.ceil(Math.random()*9),
+        value: '',
+        result: '',
+        
+      },
+      methods: {
+        onSubmitForm(e){
+          e.preventDefault(); //새로고침을 막기 위해 근데 @prevent 쓰면 되는거아님?
+          // data가 string으로 나오기 때문에 parseInt를 사용해 숫자 타입으로 형변환 해준다.
+          // first에 부여된 값 x second에 부여된 값이 value에 적은 값과 같다면
+          if(this.first*this.second == parseInt(this.value)){ 
+            this.result = '정답입니다!';
+            // first와 second의 값을 다시 내준다.
+            this.first = Math.ceil(Math.random()*9);
+            this.second = Math.ceil(Math.random()*9);
+            // 답 칸을 비워준다
+            this.value='';
+            // 태그의 ref를 $refs로 접근할 수 있다.
+            this.$refs.answer.focus()
+          }else{//다르다면
+            this.result = '땡입니다.';
+            this.value='';
+            this.$refs.answer.focus()
+          }
+        }
+      }, 
+    })
+  </script>
+</body>
+</html>
