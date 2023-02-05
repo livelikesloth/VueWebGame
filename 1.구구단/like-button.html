@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>Page Title</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-</head>
-<body>
-  <div id='root'>
-    <!-- data의 liked를 가리킨다. liked가 true가 되면 버튼이 사라지고 Liked!!!!가 출력될 것 -->
-    <div v-if="liked">Liked!!!!</div>
-    <!-- 처음에는 liked의 기본값은 false이니까 v-else가 보인다. -->
-    <button v-else @click="onClickButton">Like!</button>
-  </div>
-</body>
-<script>
-  // main div를 vue의 템플릿으로 전환할 수 있다 app을 Vue의 인스턴스라고 부른다.
-  const app = new Vue({
-    el: '#root', // el이라는 속성을 통해 vue가 root를 통제할 수 있게 만들어줌
-    data: { // 데이터를 저장하는 곳 vue는 데이터를 넣으면 화면이 알아서 바뀐다!
-      liked: false, //true가 되는 순간 화면에 글자가 나오게 하기
-    },
-    methods: {
-      onClickButton() {
-        this.liked = true; //this 는 data를 가리킴  data안의 liked를 트루로 설정한다.
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- data의 liked를 가리킨다. liked가 true가 되면 버튼이 사라지고 Liked!!!!가 출력될 것 -->
+      <div v-if="route === 'main'">메인화면</div>
+      <div v-else-if="route === 'sub'">서브화면</div>
+      <div v-else-if="route === 'sub'">좋아요</div>
+      <!-- 처음에는 liked의 기본값은 false이니까 v-else가 보인다. -->
+      <button v-else @click="onClickButton">Like!</button>
+    </div>
+  </body>
+  <script>
+    // main div를 vue의 템플릿으로 전환할 수 있다 app을 Vue의 인스턴스라고 부른다.
+    const app = new Vue({
+      el: "#root", // el이라는 속성을 통해 vue가 root를 통제할 수 있게 만들어줌
+      data: {
+        // 데이터를 저장하는 곳 vue는 데이터를 넣으면 화면이 알아서 바뀐다!
+        liked: false, //true가 되는 순간 화면에 글자가 나오게 하기
+        route: 'main'
       },
-    },
-  });
-</script>
+      methods: {
+        onClickButton() {
+          this.liked = true; //this 는 data를 가리킴  data안의 liked를 트루로 설정한다.
+        },
+      },
+    });
+  </script>
 </html>
